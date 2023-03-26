@@ -6,11 +6,31 @@ import { Form } from "./components/modules/Form";
 import { Button } from "./components/ui/button/Button";
 import { PortfolioTable } from "./components/modules/PortfolioTable";
 
+export const ContextData = React.createContext({
+  isVisibleAddModal: false,
+  setIsVisibleAddModal: (arg: boolean) => {},
+});
+
 export const App = () => {
+  const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
+  const [isVisiblePortfolioModal, setIsVisiblePortfolioModal] = useState(false);
+
   return (
-    <div className="page wrapper">
-      <Header />
-      <Outlet />
-    </div>
+    <ContextData.Provider value={{ isVisibleAddModal, setIsVisibleAddModal }}>
+      <div className="page wrapper">
+        <Header onPortfolioClick={setIsVisiblePortfolioModal} />
+        <Outlet />
+        {isVisiblePortfolioModal && (
+          <Modal onClick={setIsVisiblePortfolioModal}>
+            <div>dddd</div>
+          </Modal>
+        )}
+        {isVisibleAddModal && (
+          <Modal onClick={setIsVisibleAddModal}>
+            <div>ddd</div>
+          </Modal>
+        )}
+      </div>
+    </ContextData.Provider>
   );
 };

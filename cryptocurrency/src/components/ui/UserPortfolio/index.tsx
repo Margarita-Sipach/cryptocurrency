@@ -4,11 +4,12 @@ import classes from "./style.module.scss";
 interface UserPortfolioProps {
   value: number;
   diff: number;
+  onClick: (arg: boolean) => void;
 }
 
-export const UserPortfolio = ({ value, diff }: UserPortfolioProps) => {
+export const UserPortfolio = ({ value, diff, onClick }: UserPortfolioProps) => {
   return (
-    <div className={classes.portfolio}>
+    <div className={classes.portfolio} onClick={() => onClick(true)}>
       <span className={classes.title}>User Portfolio</span>
       <div>
         <span className={classes.value}>$ {value}</span>
