@@ -22,12 +22,12 @@ export const App = () => {
         <Outlet />
         {isVisiblePortfolioModal && (
           <Modal onClick={setIsVisiblePortfolioModal}>
-            <div>dddd</div>
+            <PortfolioTable />
           </Modal>
         )}
         {isVisibleAddModal && (
           <Modal onClick={setIsVisibleAddModal}>
-            <div>ddd</div>
+            <Form />
           </Modal>
         )}
       </div>
