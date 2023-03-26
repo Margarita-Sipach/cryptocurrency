@@ -1,0 +1,22 @@
+.header{
+	width: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 50px;
+	
+	@media (max-width: 480px){
+		height: 70px;
+	}
+}
+
+.top {
+	display: flex;
+	>*{
+		margin-right: 15px;
+		@media (max-width: 480px){
+			margin-right: 10px;
+		}
+	}
+}

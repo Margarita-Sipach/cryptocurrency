@@ -1,0 +1,22 @@
+.portfolio{
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+}	
+
+.title{
+	font-size: 20px;
+	margin-bottom: 5px;
+	@media (max-width: 480px){
+		font-size: 16px;
+	}
+}
+
+.value{
+	color: white;
+	margin-right: 10px;
+}
+
+.diff{
+	color: rgb(9, 232, 9)
+}
