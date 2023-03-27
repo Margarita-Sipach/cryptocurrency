@@ -1,3 +1,4 @@
+import { Button } from '../Button';
 import classes from './style.module.scss';
 
 interface AddButtonProps {
@@ -7,16 +8,16 @@ interface AddButtonProps {
 }
 export const AddButton = ({ id, onModal, getModalId }: AddButtonProps) => {
   return (
-    <button
+    <Button
       className={classes.button}
-      onClick={(e) => {
-        getModalId(id);
+      onClick={(e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
+        getModalId(id);
         onModal(true);
       }}
     >
       +
-    </button>
+    </Button>
   );
 };
