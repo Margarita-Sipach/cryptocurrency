@@ -10,7 +10,7 @@ export const CryptoElement = ({ title, price }: CryptoElementProps) => {
   return (
     <div className={classes.element}>
       <span className={classes.title}>{title}</span>
-      <span className={classes.price}>$ {price}</span>
+      <span className={classes.price}>$ {price.toFixed(2)}</span>
     </div>
   );
 };

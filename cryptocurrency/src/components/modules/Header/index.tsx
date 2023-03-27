@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getAllData } from "../../../api";
+import { CryptoType } from "../../../type";
 import { CryptoElement } from "../../ui/CryptoElement";
 import { UserPortfolio } from "../../ui/UserPortfolio";
 import classes from "./style.module.scss";
@@ -8,14 +10,25 @@ export const Header = ({
 }: {
   onPortfolioClick: (arg: boolean) => void;
 }) => {
+  const [elements, setElements] = useState([]);
+
+  useEffect(() => {
+    getAllData(setElements, 3);
+  }, []);
+
   return (
     <header className={classes.header}>
       <div className={classes.top}>
-        <CryptoElement title={"ffffff"} price={0}></CryptoElement>
-        <CryptoElement title={"ffffff"} price={0}></CryptoElement>
-        <CryptoElement title={"ffffff"} price={0}></CryptoElement>
+        {elements &&
+          elements.map((item: CryptoType) => (
+            <CryptoElement
+              key={item.id}
+              title={item.name}
+              price={+item.priceUsd}
+            ></CryptoElement>
+          ))}
       </div>
-      <UserPortfolio value={134.32} diff={2.38} onClick={onPortfolioClick} />
+      <UserPortfolio onClick={onPortfolioClick} />
     </header>
   );
 };

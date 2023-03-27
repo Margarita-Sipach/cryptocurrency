@@ -3,7 +3,6 @@ import classes from "./style.module.scss";
 import { Link } from "react-router-dom";
 import { Modal } from "../../ui/Modal";
 import { AddButton } from "../../ui/button/AddButton";
-import axios from "axios";
 import { CryptoType } from "../../../type";
 import { Form } from "../Form";
 import { getAllData, getDataById } from "../../../api";
@@ -35,6 +34,7 @@ const fields = [
 
 export const Table = ({ id }: { id?: string }) => {
   const [data, setData] = useState([]);
+  const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
   const [currentIdModal, setCurrentIdModal] = useState("");
 
   useEffect(() => {
@@ -66,10 +66,19 @@ export const Table = ({ id }: { id?: string }) => {
               </div>
             ))}
             <div className={classes.ceil} onClick={(e) => e.stopPropagation()}>
-              <AddButton />
+              <AddButton
+                id={item.id}
+                onModal={setIsVisibleAddModal}
+                getModalId={setCurrentIdModal}
+              />
             </div>
           </Link>
         ))}
+      {isVisibleAddModal && (
+        <Modal onClick={setIsVisibleAddModal}>
+          <Form id={currentIdModal} />
+        </Modal>
+      )}
     </div>
   );
 };
