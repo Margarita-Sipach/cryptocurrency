@@ -1,16 +1,25 @@
-import React from "react";
-import { Button } from "../../ui/button/Button";
-import classes from "./style.module.scss";
+import React from 'react';
+import { ContextData } from '../../../App';
+import { Button } from '../../ui/button/Button';
+import classes from './style.module.scss';
 
-const data = ["name", "name1", "name2"];
+const tableHeader = ['ID', 'Amount', 'Delete'];
 
 export const PortfolioTable = () => {
+  const { changes } = React.useContext(ContextData);
+
   return (
     <div className={classes.table}>
-      {data.map((item) => (
-        <div className={classes.row}>
-          <div className={classes.ceil}>{item}</div>
-          <div className={`${classes.ceil} ${classes.del}`}>delete</div>
+      <div className={`${classes.header} ${classes.row}`}>
+        {tableHeader.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+      {changes.map((item) => (
+        <div key={item.id} className={classes.row}>
+          <span>{item.id}</span>
+          <span>{item.value}</span>
+          <Button onClick={() => {}}>delete</Button>
         </div>
       ))}
     </div>
