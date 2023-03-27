@@ -13,7 +13,7 @@ export const Header = ({
   const [elements, setElements] = useState([]);
 
   useEffect(() => {
-    getAllData(setElements, 3);
+    getAllData(3).then(item => setElements(item));
   }, []);
 
   return (

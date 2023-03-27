@@ -38,7 +38,7 @@ export const Table = ({ id }: { id?: string }) => {
   const [currentIdModal, setCurrentIdModal] = useState("");
 
   useEffect(() => {
-    id ? getDataById(setData, id) : getAllData(setData);
+    (id ? getDataById(id) : getAllData()).then(item => setData(item));
   }, []);
 
   return (

@@ -10,7 +10,7 @@ export const Graph = ({id}: {id: string}) => {
 
   useEffect(() => {
     const date = Date.now();
-    getHistoryById(setData, id, "h1", date - 86400000, date);
+    getHistoryById(id, "h1", date - 86400000, date).then(item => setData(item))
   }, []);
 
   return (
