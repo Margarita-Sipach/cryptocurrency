@@ -6,8 +6,10 @@ interface InputProps {
     placeholder?: string;
     type?: string;
   };
+	value: string
+	onChange: (arg: string) => void
 }
 
-export const Input = ({attributes}: InputProps) => {
-  return <input {...attributes} className={classes.input} />;
+export const Input = ({ attributes, value, onChange }: InputProps) => {
+  return <input {...attributes} value={value} className={classes.input} onChange={(e) => onChange(e.target.value)}/>;
 };
