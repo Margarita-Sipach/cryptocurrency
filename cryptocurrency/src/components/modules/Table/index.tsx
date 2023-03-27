@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./style.module.scss";
 import { Link } from "react-router-dom";
 import { Modal } from "../../ui/Modal";
 import { AddButton } from "../../ui/button/AddButton";
+import axios from "axios";
+import { CryptoType } from "../../../type";
+import { Form } from "../Form";
+import { getAllData, getDataById } from "../../../api";
 
 const tableHeader = [
   "Rank",
@@ -17,32 +21,26 @@ const tableHeader = [
   "Add",
 ];
 
-const data = [
-  [
-    "1",
-    "$200FF00",
-    "$200VFD00",
-    "$G",
-    "$20F000",
-    "$2FVD0000",
-    "$2VF0000",
-    "$2VD0000",
-    "$2FV0000",
-  ],
-  [
-    "1",
-    "$200x00",
-    "$20A0E00",
-    "$20F000",
-    "$2D0000",
-    "$200E00",
-    "$20E0V00",
-    "$2DS0000",
-    "$20E00B0",
-  ],
+const fields = [
+  "rank",
+  "name",
+  "priceUsd",
+  "marketCapUsd",
+  "vwap24Hr",
+  "maxSupply",
+  "supply",
+  "volumeUsd24Hr",
+  "changePercent24Hr",
 ];
 
-export const Table = () => {
+export const Table = ({ id }: { id?: string }) => {
+  const [data, setData] = useState([]);
+  const [currentIdModal, setCurrentIdModal] = useState("");
+
+  useEffect(() => {
+    id ? getDataById(setData, id) : getAllData(setData);
+  }, []);
+
   return (
     <div className={classes.table}>
       <div className={`${classes.row} ${classes.header}`}>
@@ -53,18 +51,25 @@ export const Table = () => {
         ))}
       </div>
 
-      {data.map((row) => (
-        <Link key={row} className={classes.row} to={""}>
-          {row.map((ceil) => (
-            <div key={ceil} className={classes.ceil}>
-              {ceil}
+      {data &&
+        (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
+          <Link
+            key={item.id.repeat(2)}
+            className={classes.row}
+            to={`/${item.id}`}
+          >
+            {fields.map((val) => (
+              <div className={classes.ceil}>
+                {+item[val as keyof CryptoType]
+                  ? (+item[val as keyof CryptoType]).toFixed(2)
+                  : item[val as keyof CryptoType]}
+              </div>
+            ))}
+            <div className={classes.ceil} onClick={(e) => e.stopPropagation()}>
+              <AddButton />
             </div>
-          ))}
-          <div className={classes.ceil}>
-            <AddButton />
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
     </div>
   );
 };
