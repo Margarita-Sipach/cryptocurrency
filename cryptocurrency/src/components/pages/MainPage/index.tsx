@@ -1,7 +1,13 @@
-import React from "react";
-import { Table } from "../../modules/Table";
-import classes from "./style.module.scss";
+// import React, { useState } from 'react';
+// import { Pagination } from '../../modules/Pagination';
+import { Table } from '../../modules/Table';
+// import classes from './style.module.scss';
 
 export const MainPage = () => {
-  return <Table />;
+  return (
+    <div>
+      <Table />
+      {/* <Pagination /> */}
+    </div>
+  );
 };

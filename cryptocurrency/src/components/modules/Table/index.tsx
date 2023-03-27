@@ -1,45 +1,50 @@
-import React, { useEffect, useState } from "react";
-import classes from "./style.module.scss";
-import { Link } from "react-router-dom";
-import { Modal } from "../../ui/Modal";
-import { AddButton } from "../../ui/button/AddButton";
-import { CryptoType } from "../../../type";
-import { Form } from "../Form";
-import { getAllData, getDataById } from "../../../api";
+import { useEffect, useState } from 'react';
+import classes from './style.module.scss';
+import { Link } from 'react-router-dom';
+import { Modal } from '../../ui/Modal';
+import { AddButton } from '../../ui/button/AddButton';
+import { CryptoType } from '../../../type';
+import { Form } from '../Form';
+import { getAllData, getDataById } from '../../../api';
 
 const tableHeader = [
-  "Rank",
-  "Name",
-  "Price",
-  "Market Cap",
-  "VWAP (24Hr)",
-  "MAX Supply",
-  "Supply",
-  "Volume (24Hr)",
-  "Change (24Hr)",
-  "Add",
+  'Rank',
+  'Name',
+  'Price',
+  'Market Cap',
+  'VWAP (24Hr)',
+  'MAX Supply',
+  'Supply',
+  'Volume (24Hr)',
+  'Change (24Hr)',
+  'Add',
 ];
 
 const fields = [
-  "rank",
-  "name",
-  "priceUsd",
-  "marketCapUsd",
-  "vwap24Hr",
-  "maxSupply",
-  "supply",
-  "volumeUsd24Hr",
-  "changePercent24Hr",
+  'rank',
+  'name',
+  'priceUsd',
+  'marketCapUsd',
+  'vwap24Hr',
+  'maxSupply',
+  'supply',
+  'volumeUsd24Hr',
+  'changePercent24Hr',
 ];
 
 export const Table = ({ id }: { id?: string }) => {
   const [data, setData] = useState([]);
   const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
-  const [currentIdModal, setCurrentIdModal] = useState("");
+  const [currentIdModal, setCurrentIdModal] = useState('');
+  const [activePage, setActivePage] = useState(1);
+
+  const handleClickOnPaginationItem = (e: MouseEvent) => {
+    setActivePage(+((e.target as HTMLElement).textContent || 1));
+  };
 
   useEffect(() => {
-    (id ? getDataById(id) : getAllData()).then(item => setData(item));
-  }, []);
+    (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => setData(item));
+  }, [activePage]);
 
   return (
     <div className={classes.table}>
@@ -53,15 +58,11 @@ export const Table = ({ id }: { id?: string }) => {
 
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
-          <Link
-            key={item.id.repeat(2)}
-            className={classes.row}
-            to={`/${item.id}`}
-          >
+          <Link key={item.id.repeat(2)} className={classes.row} to={`/${item.id}`}>
             {fields.map((val) => (
-              <div className={classes.ceil}>
+              <div key={val} className={classes.ceil}>
                 {+item[val as keyof CryptoType]
-                  ? (+item[val as keyof CryptoType]).toFixed(2)
+                  ? (+item[val as keyof CryptoType]).toFixed(3)
                   : item[val as keyof CryptoType]}
               </div>
             ))}
@@ -79,6 +80,19 @@ export const Table = ({ id }: { id?: string }) => {
           <Form id={currentIdModal} />
         </Modal>
       )}
+      <div className={classes.pagination}>
+        {Array.from({ length: data.length }, (_, index) => index + 1).map((item) => (
+          <button
+            key={item}
+            className={`${classes.pagination__item} ${
+              activePage === item && classes.pagination__item_active
+            }`}
+            onClick={(e) => handleClickOnPaginationItem(e)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
