@@ -5,7 +5,7 @@ import { Table } from '../../modules/Table';
 
 export const MainPage = () => {
   return (
-    <div>
+    <div className="page">
       <Table />
       {/* <Pagination /> */}
     </div>

@@ -6,6 +6,7 @@ import { AddButton } from '../../ui/button/AddButton';
 import { CryptoType } from '../../../type';
 import { Form } from '../Form';
 import { getAllData, getDataById } from '../../../api';
+import { Pagination } from '../Pagination';
 
 const tableHeader = [
   'Rank',
@@ -38,10 +39,6 @@ export const Table = ({ id }: { id?: string }) => {
   const [currentIdModal, setCurrentIdModal] = useState('');
   const [activePage, setActivePage] = useState(1);
 
-  const handleClickOnPaginationItem = (e: React.MouseEvent) => {
-    setActivePage(+((e.target as HTMLElement).textContent || 1));
-  };
-
   useEffect(() => {
     (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => setData(item));
   }, [activePage, id]);
@@ -59,9 +56,9 @@ export const Table = ({ id }: { id?: string }) => {
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
           <Link key={item.id.repeat(2)} className={classes.row} to={`/${item.id}`}>
-            {fields.map((val) => (
+            {fields.map((val, index) => (
               <div key={val} className={classes.ceil}>
-                {+item[val as keyof CryptoType]
+                {+item[val as keyof CryptoType] && index
                   ? (+item[val as keyof CryptoType]).toFixed(3)
                   : item[val as keyof CryptoType]}
               </div>
@@ -80,19 +77,7 @@ export const Table = ({ id }: { id?: string }) => {
           <Form id={currentIdModal} />
         </Modal>
       )}
-      <div className={classes.pagination}>
-        {Array.from({ length: data.length }, (_, index) => index + 1).map((item) => (
-          <button
-            key={item}
-            className={`${classes.pagination__item} ${
-              activePage === item && classes.pagination__item_active
-            }`}
-            onClick={(e: React.MouseEvent) => handleClickOnPaginationItem(e)}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+      <Pagination onPageClick={setActivePage} activePage={activePage} pageAmount={data.length} />
     </div>
   );
 };

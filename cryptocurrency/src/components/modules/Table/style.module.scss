@@ -61,20 +61,3 @@
 	}
 }
 
-.pagination{
-	display: flex;
-	margin-top: 20px;
-
-	&__item{
-		margin-right: 10px;
-		cursor: pointer;
-		color: #aea4e3; 
-		padding: 5px;
-		border-radius: 5px;
-
-		&_active{
-			background: #aea4e3;
-			color: white;
-		}
-	}
-}
