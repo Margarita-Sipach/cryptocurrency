@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { ContextData } from "../../../../App";
-import classes from "./style.module.scss";
+import classes from './style.module.scss';
 
 interface AddButtonProps {
   id: string;

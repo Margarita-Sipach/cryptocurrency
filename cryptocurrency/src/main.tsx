@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import ReactDOM, { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
-import { App } from "./App";
-import { InfoPage } from "./components/pages/InfoPage";
-import { MainPage } from "./components/pages/MainPage";
-import "./index.scss";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router';
+import { createBrowserRouter } from 'react-router-dom';
+import { App } from './App';
+import { InfoPage } from './components/pages/InfoPage';
+import { MainPage } from './components/pages/MainPage';
+import './index.scss';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
@@ -17,13 +17,13 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: "/:id",
+        path: '/:id',
         element: <InfoPage />,
       },
     ],
   },
 ]);
 
-createRoot(document.getElementById("root") as HTMLElement).render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <RouterProvider router={router} />
 );

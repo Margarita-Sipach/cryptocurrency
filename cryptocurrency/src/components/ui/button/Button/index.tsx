@@ -1,5 +1,5 @@
-import React from "react";
-import classes from "./style.module.scss";
+import React from 'react';
+import classes from './style.module.scss';
 
 interface ButtonProps {
   children: string;

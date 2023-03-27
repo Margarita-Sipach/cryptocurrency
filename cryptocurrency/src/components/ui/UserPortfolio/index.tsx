@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getDataById, getHistoryById } from '../../../api';
+import { getDataById } from '../../../api';
 import { ContextData } from '../../../App';
 import classes from './style.module.scss';
 

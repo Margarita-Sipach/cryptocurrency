@@ -1,6 +1,5 @@
-import React, { Children } from "react";
-import { ContextData } from "../../../App";
-import classes from "./style.module.scss";
+import React from 'react';
+import classes from './style.module.scss';
 
 interface ModalProps {
   children: React.ReactElement;

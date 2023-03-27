@@ -38,13 +38,13 @@ export const Table = ({ id }: { id?: string }) => {
   const [currentIdModal, setCurrentIdModal] = useState('');
   const [activePage, setActivePage] = useState(1);
 
-  const handleClickOnPaginationItem = (e: MouseEvent) => {
+  const handleClickOnPaginationItem = (e: React.MouseEvent) => {
     setActivePage(+((e.target as HTMLElement).textContent || 1));
   };
 
   useEffect(() => {
     (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => setData(item));
-  }, [activePage]);
+  }, [activePage, id]);
 
   return (
     <div className={classes.table}>
@@ -87,7 +87,7 @@ export const Table = ({ id }: { id?: string }) => {
             className={`${classes.pagination__item} ${
               activePage === item && classes.pagination__item_active
             }`}
-            onClick={(e) => handleClickOnPaginationItem(e)}
+            onClick={(e: React.MouseEvent) => handleClickOnPaginationItem(e)}
           >
             {item}
           </button>
