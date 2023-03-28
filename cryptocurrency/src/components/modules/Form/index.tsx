@@ -30,13 +30,16 @@ export const Form = ({ id }: FormProps) => {
 
   return (
     <form action="" className={classes.form}>
-      <div>{id}</div>
+      <div className={classes.form__item}>{id}</div>
       <Input
+        className={classes.form__item}
         attributes={{ placeholder: 'Write number', type: 'number' }}
         value={inputVal}
         onChange={setInputVal}
       />
-      <Button onClick={onClick}>Submit</Button>
+      <Button onClick={onClick} className={classes.form__item}>
+        Submit
+      </Button>
     </form>
   );
 };

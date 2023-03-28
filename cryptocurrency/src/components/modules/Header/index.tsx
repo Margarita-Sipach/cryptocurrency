@@ -17,7 +17,12 @@ export const Header = ({ onPortfolioClick }: { onPortfolioClick: (arg: boolean) 
       <div className={classes.top}>
         {elements &&
           elements.map((item: CryptoType) => (
-            <CryptoElement key={item.id} title={item.name} price={+item.priceUsd}></CryptoElement>
+            <CryptoElement
+              className={classes.top__item}
+              key={item.id}
+              title={item.name}
+              price={+item.priceUsd}
+            ></CryptoElement>
           ))}
       </div>
       <UserPortfolio onClick={onPortfolioClick} />
