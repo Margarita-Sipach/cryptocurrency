@@ -12,12 +12,13 @@ export const UserPortfolio = ({ onClick }: UserPortfolioProps) => {
   const [newValue, setNewValue] = useState(0);
 
   useEffect(() => {
-    changes.length > 0 &&
-      Promise.all(changes.map((item) => getDataById(item.id))).then((values) => {
-        setNewValue(
-          values.reduce((acc, item, index) => acc + item.priceUsd * changes[index].value, 0)
-        );
-      });
+    changes.length > 0
+      ? Promise.all(changes.map((item) => getDataById(item.id))).then((values) => {
+          setNewValue(
+            values.reduce((acc, item, index) => acc + item.priceUsd * changes[index].value, 0)
+          );
+        })
+      : setNewValue(0);
   }, [changes, newValue, oldValue]);
 
   return (

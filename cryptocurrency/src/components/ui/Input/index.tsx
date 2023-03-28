@@ -7,14 +7,15 @@ interface InputProps {
   };
   value: string;
   onChange: (arg: string) => void;
+  className?: string;
 }
 
-export const Input = ({ attributes, value, onChange }: InputProps) => {
+export const Input = ({ attributes, value, onChange, className }: InputProps) => {
   return (
     <input
       {...attributes}
       value={value}
-      className={classes.input}
+      className={`${classes.input} ${className}`}
       onChange={(e) => onChange(e.target.value)}
     />
   );
