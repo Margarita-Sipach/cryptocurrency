@@ -18,3 +18,8 @@ export const getHistoryById = async (id: string, interval: string, start: number
   );
   return response.data.data;
 };
+
+export const getFullHistoryById = async (id: string, interval: string) => {
+  const response = await axios.get(`${API}/${id}/history?interval=${interval}`);
+  return response.data.data;
+};

@@ -12,3 +12,10 @@ export interface CryptoType {
   volumeUsd24Hr: string;
   vwap24Hr: string;
 }
+
+export interface GraphPropertiesType {
+  title: string;
+  labelOptios: Intl.DateTimeFormatOptions;
+  interval: string;
+  start: number;
+}
