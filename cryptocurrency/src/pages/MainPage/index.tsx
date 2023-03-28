@@ -1,4 +1,4 @@
-import { Table } from '../../modules/Table';
+import { Table } from '../../components/modules/Table';
 
 export const MainPage = () => {
   return (
