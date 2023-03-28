@@ -16,7 +16,6 @@ export const Graph = ({ id }: { id: string }) => {
   return (
     <div className={classes.graph}>
       <Line
-        className=""
         data={
           data && {
             labels: data.map((item) =>

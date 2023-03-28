@@ -7,19 +7,7 @@ import { CryptoType } from '../../../type';
 import { Form } from '../Form';
 import { getAllData, getDataById } from '../../../api';
 import { Pagination } from '../Pagination';
-
-const tableHeader = [
-  'Rank',
-  'Name',
-  'Price',
-  'Market Cap',
-  'VWAP (24Hr)',
-  'MAX Supply',
-  'Supply',
-  'Volume (24Hr)',
-  'Change (24Hr)',
-  'Add',
-];
+import { TableHeader } from '../../ui/TableHeader';
 
 const fields = [
   'rank',
@@ -45,29 +33,23 @@ export const Table = ({ id }: { id?: string }) => {
 
   return (
     <div className={classes.table}>
-      <div className={`${classes.row} ${classes.header}`}>
-        {tableHeader.map((item) => (
-          <div key={item} className={classes.ceil}>
-            {item}
-          </div>
-        ))}
-      </div>
-
+      <TableHeader />
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
           <Link key={item.id.repeat(2)} className={classes.row} to={`/${item.id}`}>
-            {fields.map((val, index) => (
-              <div key={val} className={classes.ceil}>
-                {+item[val as keyof CryptoType] && index
-                  ? (+item[val as keyof CryptoType]).toFixed(3)
-                  : item[val as keyof CryptoType]}
-              </div>
-            ))}
+            {fields.map((val, index) => {
+              const key = val as keyof CryptoType;
+              return (
+                <div key={val} className={classes.ceil}>
+                  {+item[key] && index ? (+item[key]).toFixed(3) : item[key]}
+                </div>
+              );
+            })}
             <div className={classes.ceil} onClick={(e) => e.stopPropagation()}>
               <AddButton
                 id={item.id}
-                onModal={setIsVisibleAddModal}
-                getModalId={setCurrentIdModal}
+                onVisibleModal={setIsVisibleAddModal}
+                onGetModalId={setCurrentIdModal}
               />
             </div>
           </Link>

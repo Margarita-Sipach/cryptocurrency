@@ -3,20 +3,19 @@ import classes from './style.module.scss';
 
 interface AddButtonProps {
   id: string;
-  onModal: (arg: boolean) => void;
-  getModalId: (arg: string) => void;
+  onVisibleModal: (arg: boolean) => void;
+  onGetModalId: (arg: string) => void;
 }
-export const AddButton = ({ id, onModal, getModalId }: AddButtonProps) => {
+export const AddButton = ({ id, onVisibleModal, onGetModalId }: AddButtonProps) => {
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onGetModalId(id);
+    onVisibleModal(true);
+  };
+
   return (
-    <Button
-      className={classes.button}
-      onClick={(e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        getModalId(id);
-        onModal(true);
-      }}
-    >
+    <Button className={classes.button} onClick={(e: React.MouseEvent) => handleButtonClick(e)}>
       +
     </Button>
   );

@@ -13,14 +13,12 @@ export const Form = ({ id }: FormProps) => {
   const { setOldValue, changes, setChanges } = React.useContext(ContextData);
   const [inputVal, setInputVal] = useState('');
 
-  const onClick = async () => {
+  const onClick = () => {
     if (inputVal) {
       const newChanges = [...changes, { id: id, value: +inputVal }];
-      await getDataById(id).then(() => {
-        setChanges(newChanges);
-      });
+      setChanges(newChanges);
 
-      await Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
+      Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
         setOldValue(
           values.reduce((acc, item, index) => acc + item.priceUsd * newChanges[index].value, 0)
         );

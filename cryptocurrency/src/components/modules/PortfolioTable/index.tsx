@@ -9,15 +9,11 @@ const tableHeader = ['ID', 'Amount', 'Delete'];
 export const PortfolioTable = () => {
   const { changes, setChanges, setOldValue } = React.useContext(ContextData);
 
-  const handleClick = async (id: string) => {
+  const onClick = (id: string) => {
     const newChanges = changes.filter((change) => change.id !== id);
     setChanges(newChanges);
 
-    await getDataById(id).then(() => {
-      setChanges(newChanges);
-    });
-
-    await Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
+    Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
       setOldValue(
         values.reduce((acc, item, index) => acc + item.priceUsd * newChanges[index].value, 0)
       );
@@ -32,20 +28,19 @@ export const PortfolioTable = () => {
         ))}
       </div>
       {Object.entries(
-        changes.reduce(
-          (acc, item) =>
-            acc[item.id as keyof object]
-              ? { ...acc, [item.id]: item.value + acc[item.id as keyof object] }
-              : { ...acc, [item.id]: item.value },
-          {}
-        )
+        changes.reduce((acc, item) => {
+          const key = item.id as keyof object;
+          return acc[key]
+            ? { ...acc, [key]: item.value + acc[key] }
+            : { ...acc, [key]: item.value };
+        }, {})
       ).map((item) => (
         <div key={item[0]} className={classes.row}>
           <span>{item[0]}</span>
           <span>{item[1] as string}</span>
           <Button
             onClick={(e) => {
-              handleClick(item[0]);
+              onClick(item[0]);
             }}
           >
             delete

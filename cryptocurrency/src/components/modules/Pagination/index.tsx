@@ -20,7 +20,7 @@ export const Pagination = ({ onPageClick, activePage, pageAmount }: PaginationPr
             onPageClick(+((e.target as HTMLElement).textContent || 1))
           }
         >
-          {`${item}`}
+          {item}
         </Button>
       ))}
     </div>

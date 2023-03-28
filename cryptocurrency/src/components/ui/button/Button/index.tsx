@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './style.module.scss';
 
 interface ButtonProps {
-  children: string;
+  children: string | number;
   onClick?: (e: React.MouseEvent) => void;
   className?: string;
 }
