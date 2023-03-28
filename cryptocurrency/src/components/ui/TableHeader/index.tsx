@@ -13,7 +13,6 @@ const tableHeader = [
   'Add',
 ];
 
-
 export const TableHeader = () => {
   return (
     <div className={`${classes.row} ${classes.header}`}>

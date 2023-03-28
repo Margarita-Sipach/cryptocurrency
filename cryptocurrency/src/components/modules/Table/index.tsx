@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './style.module.scss';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../ui/Modal';
@@ -8,6 +8,7 @@ import { Form } from '../Form';
 import { getAllData, getDataById } from '../../../api';
 import { Pagination } from '../Pagination';
 import { TableHeader } from '../../ui/TableHeader';
+import { ContextData } from '../../../App';
 
 const fields = [
   'rank',
@@ -26,10 +27,19 @@ export const Table = ({ id }: { id?: string }) => {
   const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
   const [currentIdModal, setCurrentIdModal] = useState('');
   const [activePage, setActivePage] = useState(1);
+  const { setIsLoading } = React.useContext(ContextData);
 
   useEffect(() => {
-    (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => setData(item));
-  }, [activePage, id]);
+    try {
+      setIsLoading(true);
+      (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => {
+        setData(item);
+        setIsLoading(false);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [activePage, id, setIsLoading]);
 
   return (
     <div className={classes.table}>
