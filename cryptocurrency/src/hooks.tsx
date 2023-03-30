@@ -63,3 +63,15 @@ export const useUserPortfolio = () => {
 
   return [oldValue, newValue];
 };
+
+export const useLocaleSave = () => {
+  const [changes, setChanges] = useState(
+    localStorage.getItem('changes') ? JSON.parse(localStorage.getItem('changes') as string) : []
+  );
+  const [oldValue, setOldValue] = useState(+(localStorage.getItem('oldValue') || 0));
+  useEffect(() => {
+    localStorage.setItem('oldValue', `${oldValue}`);
+    localStorage.setItem('changes', JSON.stringify(changes));
+  }, [oldValue, changes]);
+  return [changes, setChanges, oldValue, setOldValue];
+};
