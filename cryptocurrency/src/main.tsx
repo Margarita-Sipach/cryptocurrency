@@ -9,7 +9,7 @@ import './index.scss';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/cryptocurrency',
     element: <App />,
     children: [
       {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: '/:id',
+        path: '/cryptocurrency/:id',
         element: <InfoPage />,
       },
     ],

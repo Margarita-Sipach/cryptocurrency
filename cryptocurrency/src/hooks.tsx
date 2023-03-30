@@ -15,10 +15,11 @@ export const useTableState = (id: string, activePage: number) => {
       setIsLoading(true);
       (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => {
         setData(item);
-        setIsLoading(false);
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }, [activePage, id, setIsLoading]);
   return data;
@@ -51,9 +52,11 @@ export const useUserPortfolio = () => {
     setIsLoading(true);
     if (changes.length > 0) {
       try {
-        currencyConversion(setNewValue, changes).then(() => setIsLoading(false));
+        currencyConversion(setNewValue, changes);
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       setNewValue(0);

@@ -34,7 +34,7 @@ export const Table = ({ id }: { id?: string }) => {
       <TableHeader />
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
-          <Link key={item.id.repeat(2)} className={classes.row} to={`/${item.id}`}>
+          <Link key={item.id.repeat(2)} className={classes.row} to={`/cryptocurrency/${item.id}`}>
             {fields.map((val, index) => {
               const key = val as keyof CryptoType;
               return (
