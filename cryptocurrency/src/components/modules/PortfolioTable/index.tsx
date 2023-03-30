@@ -15,7 +15,7 @@ export const PortfolioTable = () => {
 
     Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
       setOldValue(
-        values.reduce((acc, item, index) => acc + item.priceUsd * newChanges[index].value, 0)
+        values.reduce((acc, item, index) => acc + +item.priceUsd * newChanges[index].value, 0)
       );
     });
   };

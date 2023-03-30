@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getDataById } from '../../../api';
 import { ContextData } from '../../../App';
+import { CryptoType, HistoryType } from '../../../type';
 import { Button } from '../../ui/button/Button';
 import { Input } from '../../ui/Input';
 import classes from './style.module.scss';
@@ -20,7 +21,7 @@ export const Form = ({ id }: FormProps) => {
 
       Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
         setOldValue(
-          values.reduce((acc, item, index) => acc + item.priceUsd * newChanges[index].value, 0)
+          values.reduce((acc, item, index) => acc + +item.priceUsd * newChanges[index].value, 0)
         );
       });
     }

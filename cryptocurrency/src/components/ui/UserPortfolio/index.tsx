@@ -18,7 +18,7 @@ export const UserPortfolio = ({ onClick }: UserPortfolioProps) => {
         Promise.all(changes.map((item) => getDataById(item.id)))
           .then((values) => {
             setNewValue(
-              values.reduce((acc, item, index) => acc + item.priceUsd * changes[index].value, 0)
+              values.reduce((acc, item, index) => acc + +item.priceUsd * changes[index].value, 0)
             );
           })
           .then(() => setIsLoading(false));

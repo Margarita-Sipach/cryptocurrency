@@ -23,7 +23,7 @@ const fields = [
 ];
 
 export const Table = ({ id }: { id?: string }) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([] as CryptoType[] | CryptoType);
   const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
   const [currentIdModal, setCurrentIdModal] = useState('');
   const [activePage, setActivePage] = useState(1);
@@ -69,7 +69,9 @@ export const Table = ({ id }: { id?: string }) => {
           <Form id={currentIdModal} />
         </Modal>
       )}
-      <Pagination onPageClick={setActivePage} activePage={activePage} pageAmount={data.length} />
+      {Array.isArray(data) && (
+        <Pagination onPageClick={setActivePage} activePage={activePage} pageAmount={data.length} />
+      )}
     </div>
   );
 };

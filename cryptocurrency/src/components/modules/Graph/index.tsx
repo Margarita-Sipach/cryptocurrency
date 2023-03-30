@@ -5,10 +5,11 @@ import classes from './style.module.scss';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { TimeNav } from '../TimeNav';
 import { graphProperties } from '../../../data';
+import { HistoryType } from '../../../type';
 ChartJS.register(...registerables);
 
 export const Graph = ({ id }: { id: string }) => {
-  const [data, setData] = useState([] as Array<{ date: string; priceUsd: string }>);
+  const [data, setData] = useState([] as HistoryType[]);
   const [timeProperties, setTimeProperties] = useState(graphProperties[0]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const Graph = ({ id }: { id: string }) => {
         data={
           data && {
             labels: data.map((item) =>
-              new Date(item.date).toLocaleString('en-US', timeProperties.labelOptios)
+              new Date(item.time).toLocaleString('en-US', timeProperties.labelOptios)
             ),
             datasets: [
               {

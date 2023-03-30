@@ -19,3 +19,8 @@ export interface GraphPropertiesType {
   interval: string;
   start: number;
 }
+
+export interface HistoryType {
+  priceUsd: string;
+  time: number;
+}

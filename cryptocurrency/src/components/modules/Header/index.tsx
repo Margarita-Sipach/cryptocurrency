@@ -8,7 +8,7 @@ import { AiFillHome } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 export const Header = ({ onPortfolioClick }: { onPortfolioClick: (arg: boolean) => void }) => {
-  const [elements, setElements] = useState([]);
+  const [elements, setElements] = useState([] as CryptoType[]);
 
   useEffect(() => {
     getAllData(3).then((item) => setElements(item));
