@@ -9,6 +9,7 @@ import { getAllData, getDataById } from '../../../api';
 import { Pagination } from '../Pagination';
 import { TableHeader } from '../../ui/TableHeader';
 import { ContextData } from '../../../App';
+import { useTableState } from '../../../hooks';
 
 const fields = [
   'rank',
@@ -23,23 +24,10 @@ const fields = [
 ];
 
 export const Table = ({ id }: { id?: string }) => {
-  const [data, setData] = useState([] as CryptoType[] | CryptoType);
   const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
   const [currentIdModal, setCurrentIdModal] = useState('');
   const [activePage, setActivePage] = useState(1);
-  const { setIsLoading } = React.useContext(ContextData);
-
-  useEffect(() => {
-    try {
-      setIsLoading(true);
-      (id ? getDataById(id) : getAllData(10, activePage * 10 - 10)).then((item) => {
-        setData(item);
-        setIsLoading(false);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }, [activePage, id, setIsLoading]);
+  const data = useTableState(id || '', activePage);
 
   return (
     <div className={classes.table}>

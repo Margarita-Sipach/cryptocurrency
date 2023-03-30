@@ -6,18 +6,12 @@ import { Chart as ChartJS, registerables } from 'chart.js';
 import { TimeNav } from '../TimeNav';
 import { graphProperties } from '../../../data';
 import { HistoryType } from '../../../type';
+import { useGraphState } from '../../../hooks';
 ChartJS.register(...registerables);
 
 export const Graph = ({ id }: { id: string }) => {
-  const [data, setData] = useState([] as HistoryType[]);
   const [timeProperties, setTimeProperties] = useState(graphProperties[0]);
-
-  useEffect(() => {
-    (timeProperties.start
-      ? getHistoryById(id, timeProperties.interval, timeProperties.start, Date.now())
-      : getFullHistoryById(id, timeProperties.interval)
-    ).then((item) => setData(item));
-  }, [id, timeProperties]);
+  const data = useGraphState(id, timeProperties);
 
   return (
     <div className={classes.graph}>

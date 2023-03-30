@@ -1,6 +1,7 @@
 import React from 'react';
 import { getDataById } from '../../../api';
 import { ContextData } from '../../../App';
+import { currencyConversion } from '../../../functions';
 import { Button } from '../../ui/button/Button';
 import classes from './style.module.scss';
 
@@ -12,12 +13,7 @@ export const PortfolioTable = () => {
   const onClick = (id: string) => {
     const newChanges = changes.filter((change) => change.id !== id);
     setChanges(newChanges);
-
-    Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
-      setOldValue(
-        values.reduce((acc, item, index) => acc + +item.priceUsd * newChanges[index].value, 0)
-      );
-    });
+    currencyConversion(setOldValue, newChanges);
   };
 
   return (

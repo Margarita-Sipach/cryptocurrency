@@ -1,3 +1,5 @@
+import { getDataById } from './api';
+
 export const getStartDate = (type = 'day', amount = 1) => {
   const d = new Date();
   switch (type) {
@@ -10,4 +12,13 @@ export const getStartDate = (type = 'day', amount = 1) => {
     default:
       return d.setFullYear(d.getFullYear() - amount);
   }
+};
+
+export const currencyConversion = (
+  hook: (arg: number) => void,
+  changes: { id: string; value: number }[]
+) => {
+  return Promise.all(changes.map((item) => getDataById(item.id))).then((values) => {
+    hook(values.reduce((acc, item, index) => acc + +item.priceUsd * changes[index].value, 0));
+  });
 };

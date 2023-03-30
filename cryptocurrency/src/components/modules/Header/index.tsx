@@ -6,13 +6,10 @@ import { UserPortfolio } from '../../ui/UserPortfolio';
 import classes from './style.module.scss';
 import { AiFillHome } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { usePopularElements } from '../../../hooks';
 
 export const Header = ({ onPortfolioClick }: { onPortfolioClick: (arg: boolean) => void }) => {
-  const [elements, setElements] = useState([] as CryptoType[]);
-
-  useEffect(() => {
-    getAllData(3).then((item) => setElements(item));
-  }, []);
+  const elements = usePopularElements();
 
   return (
     <header className={classes.header}>

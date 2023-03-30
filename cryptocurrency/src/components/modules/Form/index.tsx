@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getDataById } from '../../../api';
 import { ContextData } from '../../../App';
+import { currencyConversion } from '../../../functions';
 import { CryptoType, HistoryType } from '../../../type';
 import { Button } from '../../ui/button/Button';
 import { Input } from '../../ui/Input';
@@ -18,12 +19,7 @@ export const Form = ({ id }: FormProps) => {
     if (inputVal) {
       const newChanges = [...changes, { id: id, value: +inputVal }];
       setChanges(newChanges);
-
-      Promise.all(newChanges.map((item) => getDataById(item.id))).then((values) => {
-        setOldValue(
-          values.reduce((acc, item, index) => acc + +item.priceUsd * newChanges[index].value, 0)
-        );
-      });
+      currencyConversion(setOldValue, newChanges);
     }
   };
 
