@@ -16,9 +16,7 @@ export const Pagination = ({ onPageClick, activePage, pageAmount }: PaginationPr
           className={`${classes.pagination__item} ${
             activePage === item && classes.pagination__item_active
           }`}
-          onClick={(e: React.MouseEvent) =>
-            onPageClick(+((e.target as HTMLElement).textContent || 1))
-          }
+          onClick={() => onPageClick(+(item || 1))}
         >
           {item}
         </Button>

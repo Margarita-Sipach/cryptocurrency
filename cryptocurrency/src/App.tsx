@@ -5,19 +5,20 @@ import { Modal } from './components/ui/Modal';
 import { PortfolioTable } from './components/modules/PortfolioTable';
 import { Loader } from './components/ui/Loading';
 import { useLocaleSave } from './hooks';
+import { ChangeType, ContextType } from './type';
 
-export const ContextData = React.createContext({
-  changes: [] as Array<{ id: string; value: number; date: number }>,
-  setChanges: (arg: object[]) => {},
+export const ContextData = React.createContext<ContextType>({
+  changes: [],
+  setChanges: () => {},
   oldValue: 0,
-  setOldValue: (arg: number) => {},
+  setOldValue: () => {},
   isLoading: false,
-  setIsLoading: (arg: boolean) => {},
+  setIsLoading: () => {},
 });
 
 export const App = () => {
-  const [isVisiblePortfolioModal, setIsVisiblePortfolioModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isVisiblePortfolioModal, setIsVisiblePortfolioModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [changes, setChanges, oldValue, setOldValue] = useLocaleSave();
 
   return (

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import classes from './style.module.scss';
 
 // interface LoadingProps {}

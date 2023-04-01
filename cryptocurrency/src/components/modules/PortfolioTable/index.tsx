@@ -4,11 +4,12 @@ import { ContextData } from '../../../App';
 import { currencyConversion } from '../../../functions';
 import { Button } from '../../ui/button/Button';
 import classes from './style.module.scss';
+import { ContextType, ChangeType } from '../../../type';
 
 const tableHeader = ['ID', 'Amount', 'Delete'];
 
 export const PortfolioTable = () => {
-  const { changes, setChanges, setOldValue } = React.useContext(ContextData);
+  const { changes, setChanges, setOldValue } = React.useContext<ContextType>(ContextData);
 
   const onClick = (id: string) => {
     const newChanges = changes.filter((change) => change.id !== id);
@@ -24,8 +25,8 @@ export const PortfolioTable = () => {
         ))}
       </div>
       {Object.entries(
-        changes.reduce((acc, item) => {
-          const key = item.id as keyof object;
+        changes.reduce((acc: { [key: string]: number }, item) => {
+          const key = item.id;
           return acc[key]
             ? { ...acc, [key]: item.value + acc[key] }
             : { ...acc, [key]: item.value };
@@ -33,9 +34,9 @@ export const PortfolioTable = () => {
       ).map((item) => (
         <div key={item[0]} className={classes.row}>
           <span>{item[0]}</span>
-          <span>{item[1] as string}</span>
+          <span>{String(item[1])}</span>
           <Button
-            onClick={(e) => {
+            onClick={() => {
               onClick(item[0]);
             }}
           >

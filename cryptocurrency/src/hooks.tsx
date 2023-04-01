@@ -4,12 +4,12 @@ import { getAllData, getDataById, getFullHistoryById, getHistoryById } from './a
 import { ContextData } from './App';
 import { graphProperties } from './data';
 import { currencyConversion } from './functions';
-import { CryptoType, GraphPropertiesType, HistoryType } from './type';
+import { ChangeType, ContextType, CryptoType, GraphPropertiesType, HistoryType } from './type';
 
-export const useTableState = (id: string, activePage: number) => {
-  const { setIsLoading } = React.useContext(ContextData);
+export const useTableState = (id: string, activePage: number): CryptoType[] | CryptoType => {
+  const { setIsLoading } = React.useContext<ContextType>(ContextData);
 
-  const [data, setData] = useState([] as CryptoType[] | CryptoType);
+  const [data, setData] = useState<CryptoType[] | CryptoType>([]);
   useEffect(() => {
     try {
       setIsLoading(true);
@@ -25,8 +25,8 @@ export const useTableState = (id: string, activePage: number) => {
   return data;
 };
 
-export const useGraphState = (id: string, timeProperties: GraphPropertiesType) => {
-  const [data, setData] = useState([] as HistoryType[]);
+export const useGraphState = (id: string, timeProperties: GraphPropertiesType): HistoryType[] => {
+  const [data, setData] = useState<HistoryType[]>([]);
   useEffect(() => {
     (timeProperties.start
       ? getHistoryById(id, timeProperties.interval, timeProperties.start, Date.now())
@@ -36,21 +36,21 @@ export const useGraphState = (id: string, timeProperties: GraphPropertiesType) =
   return data;
 };
 
-export const usePopularElements = () => {
-  const [elements, setElements] = useState([] as CryptoType[]);
+export const usePopularElements = (): CryptoType[] => {
+  const [elements, setElements] = useState<CryptoType[]>([]);
   useEffect(() => {
     getAllData(3).then((item) => setElements(item));
   }, []);
   return elements;
 };
 
-export const useUserPortfolio = () => {
-  const { oldValue, changes, setIsLoading } = React.useContext(ContextData);
-  const [newValue, setNewValue] = useState(0);
+export const useUserPortfolio = (): [number, number] => {
+  const { oldValue, changes, setIsLoading } = React.useContext<ContextType>(ContextData);
+  const [newValue, setNewValue] = useState<number>(0);
 
   useEffect(() => {
     setIsLoading(true);
-    if (changes.length > 0) {
+    if (changes && changes.length > 0) {
       try {
         currencyConversion(setNewValue, changes);
       } catch (err) {
@@ -67,11 +67,16 @@ export const useUserPortfolio = () => {
   return [oldValue, newValue];
 };
 
-export const useLocaleSave = () => {
-  const [changes, setChanges] = useState(
-    localStorage.getItem('changes') ? JSON.parse(localStorage.getItem('changes') as string) : []
+export const useLocaleSave = (): [
+  ChangeType[],
+  (arg: ChangeType[]) => void,
+  number,
+  (arg: number) => void
+] => {
+  const [changes, setChanges] = useState<ChangeType[]>(
+    JSON.parse(localStorage.getItem('changes') || '[]')
   );
-  const [oldValue, setOldValue] = useState(+(localStorage.getItem('oldValue') || 0));
+  const [oldValue, setOldValue] = useState<number>(+(localStorage.getItem('oldValue') || 0));
   useEffect(() => {
     localStorage.setItem('oldValue', `${oldValue}`);
     localStorage.setItem('changes', JSON.stringify(changes));

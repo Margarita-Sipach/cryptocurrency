@@ -1,6 +1,7 @@
 import { getDataById } from './api';
+import { ChangeType } from './type';
 
-export const getStartDate = (type = 'day', amount = 1) => {
+export const getStartDate = (type = 'day', amount = 1): number => {
   const d = new Date();
   switch (type) {
     case 'day':
@@ -14,11 +15,7 @@ export const getStartDate = (type = 'day', amount = 1) => {
   }
 };
 
-export const currencyConversion = (
-  hook: (arg: number) => void,
-  changes: { id: string; value: number }[]
-) => {
-  return Promise.all(changes.map((item) => getDataById(item.id))).then((values) => {
-    hook(values.reduce((acc, item, index) => acc + +item.priceUsd * changes[index].value, 0));
-  });
+export const currencyConversion = async (hook: (arg: number) => void, changes: ChangeType[]) => {
+  const values = await Promise.all(changes.map((item) => getDataById(item.id)));
+  hook(values.reduce((acc, item_1, index) => acc + +item_1.priceUsd * changes[index].value, 0));
 };

@@ -24,3 +24,17 @@ export interface HistoryType {
   priceUsd: string;
   time: number;
 }
+
+export interface ChangeType {
+  id: string;
+  value: number;
+}
+
+export interface ContextType {
+  changes: ChangeType[];
+  setChanges: (arg: ChangeType[]) => void;
+  oldValue: number;
+  setOldValue: (arg: number) => void;
+  isLoading: boolean;
+  setIsLoading: (arg: boolean) => void;
+}

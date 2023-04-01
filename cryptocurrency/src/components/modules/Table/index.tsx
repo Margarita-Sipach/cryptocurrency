@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classes from './style.module.scss';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../ui/Modal';
 import { AddButton } from '../../ui/button/AddButton';
 import { CryptoType } from '../../../type';
 import { Form } from '../Form';
-import { getAllData, getDataById } from '../../../api';
 import { Pagination } from '../Pagination';
 import { TableHeader } from '../../ui/TableHeader';
-import { ContextData } from '../../../App';
 import { useTableState } from '../../../hooks';
 
-const fields = [
+const fields: Array<keyof CryptoType> = [
   'rank',
   'name',
   'priceUsd',
@@ -24,9 +22,9 @@ const fields = [
 ];
 
 export const Table = ({ id }: { id?: string }) => {
-  const [isVisibleAddModal, setIsVisibleAddModal] = useState(false);
-  const [currentIdModal, setCurrentIdModal] = useState('');
-  const [activePage, setActivePage] = useState(1);
+  const [isVisibleAddModal, setIsVisibleAddModal] = useState<boolean>(false);
+  const [currentIdModal, setCurrentIdModal] = useState<string>('');
+  const [activePage, setActivePage] = useState<number>(1);
   const data = useTableState(id || '', activePage);
 
   return (
@@ -35,11 +33,10 @@ export const Table = ({ id }: { id?: string }) => {
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
           <Link key={item.id.repeat(2)} className={classes.row} to={`/cryptocurrency/${item.id}`}>
-            {fields.map((val, index) => {
-              const key = val as keyof CryptoType;
+            {fields.map((key, index) => {
               return (
-                <div key={val} className={classes.ceil}>
-                  {+item[key] && index ? (+item[key]).toFixed(3) : item[key]}
+                <div key={key} className={classes.ceil}>
+                  {item[key] ? (+item[key] && index ? (+item[key]).toFixed(3) : item[key]) : '---'}
                 </div>
               );
             })}

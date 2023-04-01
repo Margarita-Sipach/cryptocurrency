@@ -9,7 +9,7 @@ interface TimeNavProps {
 }
 
 export const TimeNav = ({ onTimeClick }: TimeNavProps) => {
-  const [activeTime, setActiveTime] = useState(0);
+  const [activeTime, setActiveTime] = useState<number>(0);
   return (
     <div className={classes.pagination}>
       {graphProperties.map((item, index) => (
@@ -18,7 +18,7 @@ export const TimeNav = ({ onTimeClick }: TimeNavProps) => {
           className={`${classes.pagination__item} ${
             activeTime === index && classes.pagination__item_active
           }`}
-          onClick={(e: React.MouseEvent) => {
+          onClick={() => {
             setActiveTime(index);
             onTimeClick(graphProperties[index]);
           }}
