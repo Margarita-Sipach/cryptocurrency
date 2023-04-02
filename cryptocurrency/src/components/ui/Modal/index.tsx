@@ -3,15 +3,14 @@ import classes from './style.module.scss';
 
 interface ModalProps {
   children: React.ReactElement;
-  onSetModal?: (arg: HTMLDivElement | null) => void;
   onOpenModal: (arg: boolean) => void;
 }
-export const Modal = ({ children, onSetModal, onOpenModal }: ModalProps) => {
+export const Modal = ({ children, onOpenModal }: ModalProps) => {
   const innerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     innerRef.current && innerRef.current.focus();
-  }, [innerRef, onSetModal]);
+  }, [innerRef]);
 
   return (
     <div className={classes.modal} onClick={() => onOpenModal(false)}>

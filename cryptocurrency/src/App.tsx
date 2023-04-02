@@ -20,7 +20,6 @@ export const App = () => {
   const [isVisiblePortfolioModal, setIsVisiblePortfolioModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [changes, setChanges, oldValue, setOldValue] = useLocaleSave();
-  const [modal, setModal] = useState<HTMLDivElement | null>();
 
   return (
     <ContextData.Provider
@@ -30,7 +29,7 @@ export const App = () => {
         <Header onPortfolioClick={setIsVisiblePortfolioModal} />
         <Outlet />
         {isVisiblePortfolioModal && (
-          <Modal onSetModal={setModal} onOpenModal={setIsVisiblePortfolioModal}>
+          <Modal onOpenModal={setIsVisiblePortfolioModal}>
             <PortfolioTable />
           </Modal>
         )}
