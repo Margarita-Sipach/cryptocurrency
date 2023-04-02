@@ -9,9 +9,10 @@ import classes from './style.module.scss';
 
 interface FormProps {
   id: string;
+  onOpenModal: (arg: boolean) => void;
 }
 
-export const Form = ({ id }: FormProps) => {
+export const Form = ({ id, onOpenModal }: FormProps) => {
   const { setOldValue, changes, setChanges } = React.useContext<ContextType>(ContextData);
   const [inputVal, setInputVal] = useState<string>('');
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -23,6 +24,7 @@ export const Form = ({ id }: FormProps) => {
       setChanges(newChanges);
       currencyConversion(setOldValue, newChanges);
       setIsSuccess(true);
+      onOpenModal(false);
     }
   };
 

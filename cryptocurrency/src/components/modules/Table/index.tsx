@@ -50,8 +50,8 @@ export const Table = ({ id }: { id?: string }) => {
           </Link>
         ))}
       {isVisibleAddModal && (
-        <Modal onClick={setIsVisibleAddModal}>
-          <Form id={currentIdModal} />
+        <Modal onOpenModal={setIsVisibleAddModal}>
+          <Form id={currentIdModal} onOpenModal={setIsVisibleAddModal} />
         </Modal>
       )}
       {Array.isArray(data) && (
