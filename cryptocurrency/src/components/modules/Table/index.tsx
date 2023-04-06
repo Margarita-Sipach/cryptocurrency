@@ -28,19 +28,28 @@ export const Table = ({ id }: { id?: string }) => {
   const data = useTableState(id || '', activePage);
 
   return (
-    <div className={classes.table}>
+    <div className={classes.table} data-cy="table">
       <TableHeader />
       {data &&
         (Array.isArray(data) ? data : [data]).map((item: CryptoType) => (
-          <Link key={item.id.repeat(2)} className={classes.row} to={`/cryptocurrency/${item.id}`}>
+          <Link
+            key={item.id.repeat(2)}
+            className={classes.row}
+            to={`/cryptocurrency/${item.id}`}
+            data-cy="table-row"
+          >
             {fields.map((key, index) => {
               return (
-                <div key={key} className={classes.ceil}>
+                <div key={key} className={classes.ceil} data-cy={key.toLowerCase()}>
                   {item[key] ? (+item[key] && index ? (+item[key]).toFixed(3) : item[key]) : '---'}
                 </div>
               );
             })}
-            <div className={classes.ceil} onClick={(e) => e.stopPropagation()}>
+            <div
+              className={classes.ceil}
+              onClick={(e) => e.stopPropagation()}
+              data-cy="table-button"
+            >
               <AddButton
                 id={item.id}
                 onVisibleModal={setIsVisibleAddModal}

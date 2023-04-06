@@ -9,9 +9,13 @@ interface CryptoElementProps {
 
 export const CryptoElement = ({ title, price, className }: CryptoElementProps) => {
   return (
-    <div className={`${classes.element} ${className}`}>
-      <span className={classes.title}>{title}</span>
-      <span className={classes.price}>$ {price.toFixed(3)}</span>
+    <div className={`${classes.element} ${className}`} data-cy="popular-currency">
+      <span className={classes.title} data-cy="popular-currency-name">
+        {title}
+      </span>
+      <span className={classes.price} data-cy="popular-currency-price">
+        $ {price.toFixed(3)}
+      </span>
     </div>
   );
 };

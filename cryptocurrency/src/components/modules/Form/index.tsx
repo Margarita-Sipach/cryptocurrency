@@ -29,7 +29,7 @@ export const Form = ({ id, onOpenModal }: FormProps) => {
   };
 
   return (
-    <form action="" className={classes.form}>
+    <form action="" className={classes.form} data-cy="form">
       <div className={classes.form__item}>{id}</div>
       <Input
         className={classes.form__item}

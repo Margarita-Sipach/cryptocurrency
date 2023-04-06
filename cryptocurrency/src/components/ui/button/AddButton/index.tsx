@@ -15,7 +15,11 @@ export const AddButton = ({ id, onVisibleModal, onGetModalId }: AddButtonProps) 
   };
 
   return (
-    <Button className={classes.button} onClick={(e: React.MouseEvent) => handleButtonClick(e)}>
+    <Button
+      className={classes.button}
+      onClick={(e: React.MouseEvent) => handleButtonClick(e)}
+      data-cy="add-button"
+    >
       +
     </Button>
   );

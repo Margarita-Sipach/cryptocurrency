@@ -13,13 +13,14 @@ export const Modal = ({ children, onOpenModal }: ModalProps) => {
   }, [innerRef]);
 
   return (
-    <div className={classes.modal} onClick={() => onOpenModal(false)}>
+    <div className={classes.modal} onClick={() => onOpenModal(false)} data-cy="modal-bg">
       <div
         className={classes.content}
         onClick={(e) => e.stopPropagation()}
         ref={innerRef}
         tabIndex={0}
         onKeyDown={(e) => e.code === 'Escape' && onOpenModal(false)}
+        data-cy="modal-content"
       >
         {children}
       </div>

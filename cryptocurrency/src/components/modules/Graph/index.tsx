@@ -13,8 +13,9 @@ export const Graph = ({ id }: { id: string }) => {
   const data = useGraphState(id, timeProperties);
 
   return (
-    <div className={classes.graph}>
+    <div className={classes.graph} data-cy="graph">
       <Line
+        data-cy="graph-content"
         data={
           data && {
             labels: data.map((item) =>
@@ -30,7 +31,7 @@ export const Graph = ({ id }: { id: string }) => {
           }
         }
       />
-      <TimeNav onTimeClick={setTimeProperties} />
+      <TimeNav data-cy="graph-points" onTimeClick={setTimeProperties} />
     </div>
   );
 };

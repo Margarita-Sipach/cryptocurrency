@@ -66,3 +66,16 @@ export const graphProperties: GraphPropertiesType[] = [
     start: 0,
   },
 ];
+
+export const tableHeader = [
+  'Rank',
+  'Name',
+  'Price',
+  'Market Cap',
+  'VWAP (24Hr)',
+  'MAX Supply',
+  'Supply',
+  'Volume (24Hr)',
+  'Change (24Hr)',
+  'Add',
+];

@@ -19,7 +19,7 @@ export const PortfolioTable = () => {
   };
 
   return (
-    <div className={classes.table}>
+    <div className={classes.table} data-cy="portfolio-table">
       <div className={`${classes.header} ${classes.row}`}>
         {tableHeader.map((item) => (
           <span key={item}>{item}</span>
@@ -33,9 +33,9 @@ export const PortfolioTable = () => {
             : { ...acc, [key]: item.value };
         }, {})
       ).map((item) => (
-        <div key={item[0]} className={classes.row}>
-          <span>{item[0]}</span>
-          <span>{String(item[1])}</span>
+        <div key={item[0]} className={classes.row} data-cy="portfolio-table-row">
+          <span data-cy="portfolio-table-name">{item[0]}</span>
+          <span data-cy="portfolio-table-amount">{String(item[1])}</span>
           <Button
             onClick={(e: React.MouseEvent) => {
               onClick(e, item[0]);
