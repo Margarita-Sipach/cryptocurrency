@@ -192,4 +192,13 @@ describe('Cryptocurrency App (Header)', () => {
     cy.get('[data-cy="diff"]').should('not.exist');
     cy.screenshot();
   });
+
+  it('click on home button work successfully', () => {
+    cy.visit('http://localhost:5173/cryptocurrency/bitcoin/');
+    cy.get('[data-cy="home"]').click();
+    cy.get('@userPortfolio')
+      .url()
+      .then((url) => url.endsWith(`/cryptocurrency/`));
+    cy.screenshot();
+  });
 });
