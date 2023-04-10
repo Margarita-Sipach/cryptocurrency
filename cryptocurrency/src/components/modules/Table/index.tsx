@@ -37,6 +37,7 @@ export const Table = ({ id }: { id?: string }) => {
             className={classes.row}
             to={`/cryptocurrency/${item.id}`}
             data-cy="table-row"
+            id={item.id}
           >
             {fields.map((key, index) => {
               return (
