@@ -14,7 +14,7 @@ export const Header = ({ onPortfolioClick }: { onPortfolioClick: (arg: boolean) 
   return (
     <header className={classes.header}>
       <div className={classes.col}>
-        <Link to="/cryptocurrency/">
+        <Link to="/cryptocurrency/" data-cy="home">
           <AiFillHome className={classes.home} />
         </Link>
         <div className={classes.top}>

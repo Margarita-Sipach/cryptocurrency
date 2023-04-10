@@ -1,16 +1,5 @@
 import classes from './style.module.scss';
-
-interface InputProps {
-  attributes?: {
-    placeholder?: string;
-    type?: string;
-    min?: string;
-  };
-  value: string;
-  onChange: (arg: string) => void;
-  onFocus?: () => void;
-  className?: string;
-}
+import { InputProps } from './type';
 
 export const Input = ({ attributes, value, onChange, className, onFocus }: InputProps) => {
   return (

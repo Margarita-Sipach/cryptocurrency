@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import classes from './style.module.scss';
+import { ModalProps } from './type';
 
-interface ModalProps {
-  children: React.ReactElement;
-  onOpenModal: (arg: boolean) => void;
-}
 export const Modal = ({ children, onOpenModal }: ModalProps) => {
   const innerRef = useRef<HTMLDivElement>(null);
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import classes from './style.module.scss';
-
-interface CryptoElementProps {
-  title: string;
-  price: number;
-  className?: string;
-}
+import { CryptoElementProps } from './type';
 
 export const CryptoElement = ({ title, price, className }: CryptoElementProps) => {
   return (

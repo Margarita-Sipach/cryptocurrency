@@ -1,11 +1,7 @@
 import { Button } from '../Button';
 import classes from './style.module.scss';
+import { AddButtonProps } from './type';
 
-interface AddButtonProps {
-  id: string;
-  onVisibleModal: (arg: boolean) => void;
-  onGetModalId: (arg: string) => void;
-}
 export const AddButton = ({ id, onVisibleModal, onGetModalId }: AddButtonProps) => {
   const handleButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
