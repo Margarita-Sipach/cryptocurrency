@@ -18,6 +18,7 @@ export const Modal = ({ children, onOpenModal }: ModalProps) => {
         tabIndex={0}
         onKeyDown={(e) => e.code === 'Escape' && onOpenModal(false)}
         data-cy="modal-content"
+        data-testid="modal"
       >
         {children}
       </div>

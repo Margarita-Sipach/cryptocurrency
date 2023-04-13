@@ -11,6 +11,7 @@ export const Input = ({ attributes, value, onChange, className, onFocus }: Input
         onChange(e.target.value);
       }}
       onFocus={onFocus}
+      data-testid="input"
     />
   );
 };

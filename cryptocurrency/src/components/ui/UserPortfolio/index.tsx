@@ -9,7 +9,12 @@ export const UserPortfolio = ({ onClick }: UserPortfolioProps) => {
   const [oldValue, newValue] = useUserPortfolio();
 
   return (
-    <div className={classes.portfolio} onClick={() => onClick(true)} data-cy="user-portfolio">
+    <div
+      className={classes.portfolio}
+      onClick={() => onClick(true)}
+      data-cy="user-portfolio"
+      data-testid="user-portfolio"
+    >
       <span className={classes.title}>User Portfolio</span>
       <div>
         <span data-cy="balance" className={classes.value}>
@@ -18,6 +23,7 @@ export const UserPortfolio = ({ onClick }: UserPortfolioProps) => {
         {newValue !== 0 && (
           <span
             data-cy="diff"
+            data-testid="diff"
             className={`${classes.diff} ${newValue - oldValue < 0 ? classes.low : classes.high}`}
           >
             {(newValue - oldValue || 0).toFixed(3)} (

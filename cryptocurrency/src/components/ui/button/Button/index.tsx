@@ -11,6 +11,7 @@ export const Button = ({ type = '', id, children, onClick, className = '' }: But
         onClick && (id ? onClick(e, id) : onClick(e));
       }}
       data-cy={type === 'add' && 'add-button'}
+      data-testid="button"
     >
       {type === 'add' ? '+' : children}
     </button>
