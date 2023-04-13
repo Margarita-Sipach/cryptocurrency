@@ -2,12 +2,12 @@ import { useState } from 'react';
 import classes from './style.module.scss';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../ui/Modal';
-import { AddButton } from '../../ui/button/AddButton';
 import { CryptoType } from '../../../type';
 import { Form } from '../Form';
 import { Pagination } from '../Pagination';
 import { TableHeader } from '../../ui/TableHeader';
 import { useTableState } from '../../../hooks';
+import { Button } from '../../ui/button/Button';
 
 const fields: Array<keyof CryptoType> = [
   'rank',
@@ -26,6 +26,17 @@ export const Table = ({ id }: { id?: string }) => {
   const [currentIdModal, setCurrentIdModal] = useState<string>('');
   const [activePage, setActivePage] = useState<number>(1);
   const data = useTableState(id || '', activePage);
+
+  const onClick = (e: React.MouseEvent, id?: string) => {
+    if (id) {
+      e.preventDefault();
+      e.stopPropagation();
+      setCurrentIdModal(id);
+      setIsVisibleAddModal(true);
+    } else {
+      console.log('Id is not defined');
+    }
+  };
 
   return (
     <div className={classes.table} data-cy="table">
@@ -51,11 +62,7 @@ export const Table = ({ id }: { id?: string }) => {
               onClick={(e) => e.stopPropagation()}
               data-cy="table-button"
             >
-              <AddButton
-                id={item.id}
-                onVisibleModal={setIsVisibleAddModal}
-                onGetModalId={setCurrentIdModal}
-              />
+              <Button type="add" onClick={onClick} id={item.id} />
             </div>
           </Link>
         ))}
