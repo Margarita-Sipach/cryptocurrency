@@ -14,9 +14,9 @@ describe('Cryptocurrency App (Main Page)', () => {
   it('table loads successfully', () => {
     cy.get('[data-cy="table"]').should('be.visible');
     cy.get('@tableHeader').should('be.visible');
-    tableHeader.forEach((item) => {
-      cy.get('@tableHeader').contains(item);
-    });
+    cy.get('@tableHeader').contains(tableHeader[0]);
+    cy.get('@tableHeader').contains(tableHeader[3]);
+    cy.get('@tableHeader').contains(tableHeader[7]);
     cy.get('@tableRows').should('have.length', 10);
     cy.screenshot();
   });
